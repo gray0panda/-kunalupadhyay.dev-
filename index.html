@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kunal Upadhyay — Developer & Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0c0e;
+    --bg2: #111316;
+    --bg3: #181a1f;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8e6e0;
+    --muted: #7a7870;
+    --accent: #c8f060;
+    --accent2: #3dffc0;
+    --accent3: #ff6b4a;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.022;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(11,12,14,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 0; }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.4rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 2.2rem;
+    max-width: 38ch;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0b0c0e;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover { background: #d4ff72; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border2);
+  }
+
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+
+  /* Hero right — status card */
+  .hero-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.8rem;
+    position: relative;
+  }
+
+  .status-dot {
+    width: 7px; height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.4rem;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .status-line {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+  }
+
+  .card-stat {
+    margin-bottom: 1.2rem;
+  }
+
+  .card-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .card-stat-value {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .card-stat-value span { color: var(--accent); font-size: 1rem; }
+
+  .card-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.4rem 0;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .tag.accent { border-color: rgba(200,240,96,0.3); color: var(--accent); }
+
+  /* ── BG ACCENT ── */
+  .bg-accent-blob {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .blob1 {
+    background: rgba(200,240,96,0.04);
+    top: -200px; right: -100px;
+  }
+
+  .blob2 {
+    background: rgba(61,255,192,0.03);
+    bottom: -200px; left: -100px;
+  }
+
+  #hero .container { position: relative; z-index: 1; }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { border-top: 1px solid var(--border); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-aside {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .about-initials {
+    width: 80px; height: 80px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 1.4rem;
+  }
+
+  .about-name {
+    font-family: var(--font-head);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .about-role {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+  }
+
+  .about-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .about-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .about-link:hover { color: var(--accent); }
+
+  .about-link-icon {
+    width: 20px; height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  .about-body p {
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-body p strong { color: var(--text); font-weight: 500; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .skill-group {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+  }
+
+  .skill-group-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+  }
+
+  .skill-group p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { border-top: 1px solid var(--border); }
+
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+
+  .exp-period {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    padding-top: 0.2rem;
+  }
+
+  .exp-company {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+  }
+
+  .exp-role {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .exp-desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  /* ── PROJECTS ── */
+  #projects { border-top: 1px solid var(--border); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.6rem;
+    transition: border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+  }
+
+  .project-card:hover { border-color: var(--border2); }
+
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .project-name {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-award {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: #ffd060;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ── CONNECT ── */
+  #connect { border-top: 1px solid var(--border); }
+
+  .connect-inner {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .connect-text h2 {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .connect-text p {
+    color: var(--muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+  }
+
+  .connect-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-width: 220px;
+  }
+
+  .connect-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .connect-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-domain {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-aside { position: static; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .connect-inner { flex-direction: column; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">KU<span>.</span>dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Work</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+  <a href="mailto:kunalupadhayay10@gmail.com" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.68rem;">
+    Get in touch ↗
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="bg-accent-blob blob1"></div>
+  <div class="bg-accent-blob blob2"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">CS Student &amp; Researcher</div>
+        <h1>Building things that <em>matter</em></h1>
+        <p class="hero-desc">
+          AI/ML researcher, full-stack developer, and defense-tech intern based in Ajmer, India.
+          Currently exploring reinforcement learning, UAV forensics, and mobile-first products.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View my work</a>
+          <a href="mailto:kunalupadhayay10@gmail.com" class="btn btn-ghost">Say hello</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="status-line">
+          <span class="status-dot"></span>
+          Available for internships &amp; collaborations
+        </div>
+
+        <div class="card-stat">
+          <div class="card-stat-label">Current role</div>
+          <div class="card-stat-value" style="font-size:1.1rem; line-height:1.4;">Project Lead<span>, AI/ML Club</span></div>
+        </div>
+
+        <div class="card-stat">
+          <div class="card-stat-label">Education</div>
+          <div class="card-stat-value" style="font-size:1rem; line-height:1.4;">B.Tech CSE <span>@ GEC Ajmer</span></div>
+        </div>
+
+        <div class="card-stat">
+          <div class="card-stat-label">CGPA</div>
+          <div class="card-stat-value">8.09<span>/10</span></div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="card-stat-label" style="margin-bottom:0.7rem;">Core stack</div>
+        <div class="tech-tags">
+          <span class="tag accent">Python</span>
+          <span class="tag accent">RL</span>
+          <span class="tag accent">React Native</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">C++</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">GCP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-aside">
+        <div class="about-initials">KU</div>
+        <div class="about-name">Kunal Upadhyay</div>
+        <div class="about-role">Developer · Researcher · Builder</div>
+        <div class="about-links">
+          <a href="mailto:kunalupadhayay10@gmail.com" class="about-link">
+            <span class="about-link-icon">✉</span>
+            kunalupadhayay10@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/kunal-upadhyay" target="_blank" class="about-link">
+            <span class="about-link-icon">in</span>
+            LinkedIn
+          </a>
+          <a href="https://github.com/kunal-upadhyay" target="_blank" class="about-link">
+            <span class="about-link-icon">&#123;&#125;</span>
+            GitHub
+          </a>
+          <a href="tel:+919079601877" class="about-link">
+            <span class="about-link-icon">☏</span>
+            +91 9079601877
+          </a>
+        </div>
+      </div>
+
+      <div class="about-body">
+        <div class="section-label">About me</div>
+        <div class="section-title" style="margin-bottom:1.4rem;">Philomath. Optimist.<br>Problem solver.</div>
+
+        <p>
+          I'm a third-year CS student at <strong>Govt. Engineering College Ajmer</strong> with hands-on experience spanning
+          defense AI research at <strong>DRDO</strong>, UAV forensics, and award-winning hackathon projects.
+        </p>
+
+        <p>
+          I believe the best technology is invisible — it solves real problems without getting in the way.
+          Whether training drone swarms with reinforcement learning or reverse-engineering encrypted flight
+          data files, I bring the same obsessive curiosity to every problem.
+        </p>
+
+        <p>
+          Outside of engineering, I lead the <strong>AI/ML Club</strong> at my college — managing 30+ contributors,
+          running open-source projects, and building a space where students learn by shipping real things.
+        </p>
+
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-group-title">Languages</div>
+            <p>Python, C, C++, Java, JavaScript, Kotlin, SQL, HTML/CSS</p>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Frameworks</div>
+            <p>React Native, Node.js, Express.js, Bootstrap, NumPy</p>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Platforms</div>
+            <p>Firebase, GCP, Supabase, Android Studio, Git, Jira</p>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Specializations</div>
+            <p>Machine Learning, Reinforcement Learning, Full-Stack Dev, AES Cryptanalysis</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <div class="section-title">Where I've worked</div>
+
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-period">Jun 2025 —<br>Jul 2025</div>
+        <div>
+          <div class="exp-company">DRDO, Jodhpur</div>
+          <div class="exp-role">AI/ML Intern — Drone Obscuration</div>
+          <p class="exp-desc">
+            Engineered drone swarm technology for radar suppression in a classified defense program.
+            Developed and trained a reinforcement learning model enabling autonomous swarm coordination
+            across complex, pre-defined flight patterns.
+          </p>
+          <div class="exp-tags">
+            <span class="tag accent">Reinforcement Learning</span>
+            <span class="tag">Python</span>
+            <span class="tag">Google Colab</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-period">Sep 2024 —<br>Sep 2025</div>
+        <div>
+          <div class="exp-company">GEC Ajmer (SERB)</div>
+          <div class="exp-role">Research Assistant — UAV Forensics</div>
+          <p class="exp-desc">
+            Reverse-engineering AES-128 encryption on DJI Mavic 3 <code style="font-family:var(--font-mono);font-size:0.8em;color:var(--accent2);">.DAT</code> files for a SERB-funded project.
+            Mapped new file structures, identified critical metadata, and built Python parsers handling
+            700 MB–7 GB legacy flight logs integrated with the DJI API.
+          </p>
+          <div class="exp-tags">
+            <span class="tag accent">AES Cryptanalysis</span>
+            <span class="tag">Python</span>
+            <span class="tag">DJI API</span>
+            <span class="tag">GeoJSON/KML</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-period">Jun 2024 —<br>Jul 2024</div>
+        <div>
+          <div class="exp-company">Captain A1 Security Services</div>
+          <div class="exp-role">Web Development Intern</div>
+          <p class="exp-desc">
+            Built and optimized responsive digital platforms in a fast-paced client-facing environment.
+            Collaborated directly with design and product teams to ship polished, cross-device web interfaces.
+          </p>
+          <div class="exp-tags">
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Git</span>
+            <span class="tag">Jira</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-period">Oct 2025 —<br>Present</div>
+        <div>
+          <div class="exp-company">GEC Ajmer AI/ML Club</div>
+          <div class="exp-role">Project Lead &amp; Founder</div>
+          <p class="exp-desc">
+            Founded and manage the college AI/ML club's GitHub organization. Onboarded and coordinated
+            30+ student contributors, led project evaluations, and built a fair grading system for club submissions.
+          </p>
+          <div class="exp-tags">
+            <span class="tag accent">Leadership</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">Supabase</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Projects</div>
+    <div class="section-title">Things I've shipped</div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div>
+          <div class="project-num">01 / Project</div>
+          <div class="project-name">AgriFlow</div>
+          <div class="project-award">🏆 Runner-up · HackCrux 2025 @ LNMIIT</div>
+          <p class="project-desc">
+            Smart irrigation system built in 24 hours. Designed a serverless caching architecture
+            projecting 70%+ API call reduction, paired with a full React Native mobile app with
+            Firebase Firestore and real-time database management.
+          </p>
+        </div>
+        <div class="exp-tags">
+          <span class="tag accent">React Native</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">GDG Sponsored</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-num">02 / Research</div>
+          <div class="project-name">DJI DAT Forensics</div>
+          <div class="project-award" style="color: var(--accent2);">⬡ SERB Funded · Ongoing</div>
+          <p class="project-desc">
+            Reverse engineering AES-128 encryption on next-gen DJI Mavic 3 flight logs.
+            Built parsers for 700 MB–7 GB legacy <code style="font-family:var(--font-mono);font-size:0.8em;">.DAT</code> files and established a forensic baseline
+            using retrieved DJI API keychains.
+          </p>
+        </div>
+        <div class="exp-tags">
+          <span class="tag accent">AES-128</span>
+          <span class="tag">Python</span>
+          <span class="tag">Forensics</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-num">03 / Defense</div>
+          <div class="project-name">Drone Swarm RL</div>
+          <div class="project-award" style="color: var(--accent3);">⬡ DRDO · Classified</div>
+          <p class="project-desc">
+            Trained a reinforcement learning model enabling a swarm of drones to autonomously
+            coordinate complex flight patterns for radar suppression and asset concealment in
+            active defense scenarios.
+          </p>
+        </div>
+        <div class="exp-tags">
+          <span class="tag accent">Reinforcement Learning</span>
+          <span class="tag">Python</span>
+          <span class="tag">Swarm AI</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-num">04 / Community</div>
+          <div class="project-name">College AI/ML Club</div>
+          <div class="project-award" style="color: var(--accent);">⬡ 30+ Contributors</div>
+          <p class="project-desc">
+            Founded and scaled a college AI/ML GitHub organization from zero. Built evaluation
+            infrastructure, contribution workflows, and a grading system — turning student interest
+            into real collaborative open-source output.
+          </p>
+        </div>
+        <div class="exp-tags">
+          <span class="tag accent">Open Source</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Supabase</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="container">
+    <div class="connect-inner">
+      <div class="connect-text">
+        <h2>Let's build<br>something.</h2>
+        <p>Open to internships, research collabs,<br>and interesting problems.</p>
+      </div>
+      <div class="connect-links">
+        <a href="mailto:kunalupadhayay10@gmail.com" class="connect-link">
+          Email ↗
+        </a>
+        <a href="https://linkedin.com/in/kunal-upadhyay" target="_blank" class="connect-link">
+          LinkedIn ↗
+        </a>
+        <a href="https://github.com/kunal-upadhyay" target="_blank" class="connect-link">
+          GitHub ↗
+        </a>
+        <a href="tel:+919079601877" class="connect-link">
+          +91 9079601877
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Kunal Upadhyay. Built with intent.</p>
+  <div class="footer-domain">kunalupadhyay.dev</div>
+</footer>
+
+</body>
+</html>
