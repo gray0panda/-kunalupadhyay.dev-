@@ -643,19 +643,19 @@
       transition: background 0.3s;
     }
     .project-card:hover { 
-      transform: translateY(-5px); 
-      border-color: rgba(255, 255, 255, 0.09);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transform: translateY(-8px); 
+      border-color: var(--proj-accent, var(--accent));
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(var(--proj-accent-rgb, 200, 240, 96), 0.08);
     }
     .project-card:hover::before {
       background: linear-gradient(135deg, transparent 40%, var(--proj-accent, var(--accent)));
     }
     
     /* Project accent color overrides */
-    .proj-agriflow { --proj-accent: var(--accent); }
-    .proj-vpn { --proj-accent: var(--accent2); }
-    .proj-agent { --proj-accent: var(--accent3); }
-    .proj-club { --proj-accent: #ffd060; }
+    .proj-agriflow { --proj-accent: var(--accent); --proj-accent-rgb: 200, 240, 96; }
+    .proj-vpn { --proj-accent: var(--accent2); --proj-accent-rgb: 42, 255, 192; }
+    .proj-agent { --proj-accent: var(--accent3); --proj-accent-rgb: 255, 90, 54; }
+    .proj-club { --proj-accent: #ffd060; --proj-accent-rgb: 255, 208, 96; }
 
     .project-header-row {
       display: flex;
@@ -801,11 +801,6 @@
       width: 100%; 
       max-width: 480px; 
     }
-    @media (min-width: 769px) {
-      .connect-links a:last-child {
-        grid-column: span 2;
-      }
-    }
     .connect-link { 
       display: flex; 
       align-items: center; 
@@ -926,6 +921,35 @@
       footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 3rem 1.5rem; }
       .footer-right { flex-direction: column; gap: 0.8rem; }
     }
+
+    /* ── ENTRANCE & SCROLL ANIMATIONS ── */
+    #hero .hero-content {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    #hero .hero-photo-side {
+      opacity: 0;
+      transform: scale(0.96);
+      animation: heroPhotoFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.15s;
+    }
+    @keyframes heroFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroPhotoFadeIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .animate-on-scroll.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -976,7 +1000,7 @@
   </section>
 
   <!-- ABOUT & EDUCATION SECTION -->
-  <section id="about">
+  <section id="about" class="animate-on-scroll">
     <div class="container">
       <h2 class="section-title"><span>01 //</span> About &amp; Education</h2>
       <div class="about-layout">
@@ -1014,7 +1038,7 @@
   </section>
 
   <!-- SKILLS SECTION -->
-  <section id="skills">
+  <section id="skills" class="animate-on-scroll">
     <div class="container">
       <h2 class="section-title"><span>02 //</span> Expertise</h2>
       
@@ -1196,7 +1220,7 @@
   </section>
 
   <!-- EXPERIENCE TIMELINE SECTION -->
-  <section id="experience">
+  <section id="experience" class="animate-on-scroll">
     <div class="container">
       <h2 class="section-title"><span>03 //</span> Experience</h2>
       <div class="exp-timeline">
@@ -1279,7 +1303,7 @@
   </section>
 
   <!-- PROJECTS SECTION -->
-  <section id="projects"> 
+  <section id="projects" class="animate-on-scroll"> 
     <div class="container"> 
       <h2 class="section-title"><span>04 //</span> Selected Projects</h2>
       <div class="projects-grid"> 
@@ -1362,7 +1386,7 @@
   </section>
 
   <!-- CERTIFICATIONS SECTION -->
-  <section id="certifications">
+  <section id="certifications" class="animate-on-scroll">
     <div class="container">
       <h2 class="section-title"><span>05 //</span> Certifications</h2>
       <div class="certs-grid">
@@ -1487,7 +1511,7 @@
   </section>
 
   <!-- CONNECT SECTION -->
-  <section id="connect"> 
+  <section id="connect" class="animate-on-scroll"> 
     <div class="container"> 
       <div class="connect-inner"> 
         <div class="connect-text"> 
@@ -1500,7 +1524,6 @@
           <a href="https://github.com/kunaal2005" target="_blank" rel="noopener noreferrer" class="connect-link" id="connGithub"> GitHub <span>↗</span> </a> 
           <a href="https://stackoverflow.com/users/22809024/kunal-upadhyay?tab=profile" target="_blank" rel="noopener noreferrer" class="connect-link" id="connSo"> StackOverflow <span>↗</span> </a> 
           <a href="https://www.kaggle.com/kunaalupadhayay" target="_blank" rel="noopener noreferrer" class="connect-link" id="connKaggle"> Kaggle <span>↗</span> </a> 
-           
           <a href="tel:+91-9079601877" class="connect-link" id="connPhone"> Phone <span>↗</span> </a> 
         </div> 
       </div> 
@@ -1538,6 +1561,26 @@
     } else {
       navbar.classList.remove('scrolled');
     }
+  });
+
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.08
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target); // trigger once
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
   });
 </script>
 </body>
